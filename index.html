@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>123-handwerker â Handwerk in Berlin</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --primary: #1a3a5c;
+    --primary-light: #2557a7;
+    --accent: #e8a020;
+    --accent-light: #f5c842;
+    --bg: #f7f8fa;
+    --white: #ffffff;
+    --text: #222b36;
+    --text-muted: #5a6475;
+    --border: #e2e6ee;
+    --card-shadow: 0 2px 16px rgba(26,58,92,0.09);
+    --radius: 12px;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+  /* NAV */
+  nav {
+    background: var(--primary);
+    padding: 0 24px;
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  }
+  .nav-brand { color: var(--white); font-size: 1.25rem; font-weight: 700; letter-spacing: 0.5px; text-decoration: none; }
+  .nav-brand span { color: var(--accent-light); }
+  .nav-links { display: flex; gap: 24px; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.92rem; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent-light); }
+  @media(max-width:600px) { .nav-links { display: none; } }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 60%, #3a7bd5 100%);
+    color: var(--white);
+    padding: 80px 24px 64px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: var(--white);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; margin-bottom: 12px; letter-spacing: -0.5px; }
+  .hero-sub { font-size: 1.1rem; color: rgba(255,255,255,0.8); margin-bottom: 28px; }
+  .hero-rating { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.12); border-radius: 40px; padding: 8px 20px; }
+  .stars-display { display: flex; gap: 3px; }
+  .star { font-size: 1.2rem; }
+  .star.filled { color: var(--accent-light); }
+  .star.half { color: var(--accent-light); opacity: 0.6; }
+  .star.empty { color: rgba(255,255,255,0.35); }
+  .rating-text { color: rgba(255,255,255,0.9); font-size: 0.95rem; font-weight: 500; }
+  .hero-cta { margin-top: 36px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 13px 30px; border-radius: 8px;
+    font-weight: 600; font-size: 0.97rem; text-decoration: none; transition: all 0.2s;
+    cursor: pointer; border: none;
+  }
+  .btn-accent { background: var(--accent); color: var(--primary); }
+  .btn-accent:hover { background: var(--accent-light); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(232,160,32,0.4); }
+  .btn-outline { background: transparent; border: 2px solid rgba(255,255,255,0.7); color: var(--white); }
+  .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: var(--white); }
+
+  /* SECTIONS */
+  section { padding: 72px 24px; }
+  .section-inner { max-width: 960px; margin: 0 auto; }
+  .section-title {
+    font-size: 1.7rem; font-weight: 700; color: var(--primary);
+    margin-bottom: 8px; position: relative; display: inline-block;
+  }
+  .section-title::after {
+    content: ''; display: block; height: 4px; border-radius: 2px;
+    background: var(--accent); margin-top: 6px; width: 50px;
+  }
+  .section-subtitle { color: var(--text-muted); font-size: 1rem; margin-bottom: 40px; margin-top: 8px; }
+
+  /* ÃBER UNS */
+  #ueber { background: var(--white); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+  @media(max-width:640px) { .about-grid { grid-template-columns: 1fr; } }
+  .about-text p { color: var(--text-muted); font-size: 1rem; line-height: 1.8; margin-bottom: 16px; }
+  .about-features { display: flex; flex-direction: column; gap: 16px; }
+  .feature-card {
+    background: var(--bg); border-radius: var(--radius); padding: 18px 20px;
+    display: flex; align-items: flex-start; gap: 14px;
+    border-left: 4px solid var(--accent);
+  }
+  .feature-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .feature-title { font-weight: 600; color: var(--primary); margin-bottom: 2px; font-size: 0.95rem; }
+  .feature-desc { color: var(--text-muted); font-size: 0.87rem; }
+
+  /* ÃFFNUNGSZEITEN */
+  #oeffnungszeiten { background: var(--bg); }
+  .hours-table { width: 100%; border-collapse: separate; border-spacing: 0 6px; }
+  .hours-table tr td {
+    padding: 12px 18px; background: var(--white);
+    border: none; font-size: 0.97rem;
+  }
+  .hours-table tr td:first-child { border-radius: 8px 0 0 8px; font-weight: 600; color: var(--primary); width: 50%; }
+  .hours-table tr td:last-child { border-radius: 0 8px 8px 0; color: var(--text-muted); text-align: right; }
+  .hours-table tr.today td { background: #e8f0fe; }
+  .hours-table tr.today td:first-child { color: var(--primary-light); }
+  .hours-table tr.today td:last-child { color: var(--primary-light); font-weight: 600; }
+  .closed { color: #c0392b !important; font-weight: 500 !important; }
+  .hours-note { margin-top: 16px; font-size: 0.87rem; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
+
+  /* BEWERTUNGEN */
+  #bewertungen { background: var(--white); }
+  .reviews-summary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    border-radius: var(--radius); padding: 28px 32px; color: var(--white);
+    display: flex; align-items: center; gap: 32px; margin-bottom: 36px; flex-wrap: wrap;
+  }
+  .rating-big { font-size: 3.5rem; font-weight: 700; line-height: 1; }
+  .rating-detail .stars-display .star { font-size: 1.4rem; }
+  .rating-detail .rating-count { font-size: 0.9rem; color: rgba(255,255,255,0.75); margin-top: 4px; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+  .review-card {
+    background: var(--bg); border-radius: var(--radius); padding: 22px;
+    border: 1px solid var(--border); box-shadow: var(--card-shadow);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .review-stars { display: flex; gap: 3px; }
+  .review-stars .star { font-size: 1rem; }
+  .review-star-filled { color: var(--accent); }
+  .review-star-empty { color: #ddd; }
+  .review-text { font-size: 0.92rem; color: var(--text-muted); line-height: 1.7; font-style: italic; }
+  .review-text::before { content: '\201E'; color: var(--accent); font-size: 1.2rem; font-style: normal; }
+  .review-text::after { content: '\201C'; color: var(--accent); font-size: 1.2rem; font-style: normal; }
+  .review-meta { font-size: 0.8rem; color: #999; font-weight: 500; }
+
+  /* KONTAKT */
+  #kontakt { background: var(--bg); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  @media(max-width:640px) { .contact-grid { grid-template-columns: 1fr; } }
+  .contact-card {
+    background: var(--white); border-radius: var(--radius);
+    padding: 32px; box-shadow: var(--card-shadow);
+    border: 1px solid var(--border);
+  }
+  .contact-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 22px; }
+  .contact-item:last-child { margin-bottom: 0; }
+  .contact-icon {
+    width: 42px; height: 42px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0; color: white;
+  }
+  .contact-label { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); margin-bottom: 3px; }
+  .contact-value { font-size: 1rem; color: var(--text); font-weight: 500; }
+  .contact-value a { color: var(--primary-light); text-decoration: none; font-weight: 600; }
+  .contact-value a:hover { color: var(--accent); }
+  .cta-card {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    border-radius: var(--radius); padding: 32px;
+    color: var(--white); display: flex; flex-direction: column; justify-content: center; gap: 18px;
+  }
+  .cta-card h3 { font-size: 1.4rem; font-weight: 700; }
+  .cta-card p { color: rgba(255,255,255,0.8); font-size: 0.97rem; line-height: 1.7; }
+  .btn-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: var(--primary); padding: 14px 28px;
+    border-radius: 8px; font-weight: 700; font-size: 1rem; text-decoration: none;
+    transition: all 0.2s; align-self: flex-start;
+  }
+  .btn-cta:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(232,160,32,0.4); }
+
+  /* FOOTER */
+  footer {
+    background: var(--primary);
+    color: rgba(255,255,255,0.75);
+    text-align: center; padding: 28px 24px;
+    font-size: 0.88rem;
+  }
+  footer strong { color: var(--white); }
+  footer .footer-links { display: flex; justify-content: center; gap: 24px; margin-top: 8px; flex-wrap: wrap; }
+  footer .footer-links span { cursor: default; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="#">123-<span>handwerker</span></a>
+  <ul class="nav-links">
+    <li><a href="#ueber">Ãber uns</a></li>
+    <li><a href="#oeffnungszeiten">Ãffnungszeiten</a></li>
+    <li><a href="#bewertungen">Bewertungen</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Handwerk Â· Berlin</div>
+  <h1>123-handwerker</h1>
+  <p class="hero-sub">Ihr Handwerksbetrieb in Berlin-Lichtenberg</p>
+  <div class="hero-rating">
+    <div class="stars-display">
+      <span class="star filled">â</span>
+      <span class="star filled">â</span>
+      <span class="star filled">â</span>
+      <span class="star half">â</span>
+      <span class="star empty">â</span>
+    </div>
+    <span class="rating-text">3,3 / 5 &nbsp;Â·&nbsp; 14 Bewertungen</span>
+  </div>
+  <div class="hero-cta">
+    <a href="tel:+4930206089â44" class="btn btn-accent">ð Jetzt anrufen</a>
+    <a href="#kontakt" class="btn btn-outline">Kontakt aufnehmen</a>
+  </div>
+</section>
+
+<!-- ÃBER UNS -->
+<section id="ueber">
+  <div class="section-inner">
+    <span class="section-title">Ãber uns</span>
+    <p class="section-subtitle">Professionelles Handwerk in Berlin-Lichtenberg</p>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>123-handwerker ist Ihr zuverlÃ¤ssiger Handwerksbetrieb im Herzen von Berlin-Lichtenberg. Wir bieten eine breite Palette an handwerklichen Dienstleistungen fÃ¼r Privat- und GeschÃ¤ftskunden an â von Reparaturarbeiten Ã¼ber Renovierungen bis hin zu kompletten AusbaumaÃnahmen.</p>
+        <p>Unser Team aus erfahrenen FachkrÃ¤ften steht Ihnen von Montag bis Freitag zwischen 08:00 und 18:00 Uhr zur VerfÃ¼gung. Wir legen groÃen Wert auf sorgfÃ¤ltige AusfÃ¼hrung, termingerechte Lieferung und eine offene Kommunikation mit unseren Kunden.</p>
+        <p>FÃ¼r Anfragen und Auftragsabsprachen erreichen Sie uns telefonisch oder kommen Sie direkt an unsere Adresse in der Drossener StraÃe 25 in 13053 Berlin.</p>
+      </div>
+      <div class="about-features">
+        <div class="feature-card">
+          <div class="feature-icon">ð§</div>
+          <div>
+            <div class="feature-title">Vielseitige Handwerksleistungen</div>
+            <div class="feature-desc">Von Fliesen bis Renovierung â alles aus einer Hand fÃ¼r Ihr Zuhause oder Gewerbe.</div>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">ð</div>
+          <div>
+            <div class="feature-title">Lokal in Berlin-Lichtenberg</div>
+            <div class="feature-desc">Wir sind vor Ort in Ihrem Kiez und kennen die Gegebenheiten in Berlin bestens.</div>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">ð</div>
+          <div>
+            <div class="feature-title">PersÃ¶nliche Beratung</div>
+            <div class="feature-desc">Wir nehmen uns Zeit fÃ¼r Ihr Anliegen und beraten Sie individuell und transparent.</div>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">ð</div>
+          <div>
+            <div class="feature-title">Flexible Erreichbarkeit</div>
+            <div class="feature-desc">MoâFr von 08:00 bis 18:00 Uhr fÃ¼r Sie erreichbar â schnell und unkompliziert.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ÃFFNUNGSZEITEN -->
+<section id="oeffnungszeiten">
+  <div class="section-inner">
+    <span class="section-title">Ãffnungszeiten</span>
+    <p class="section-subtitle">Wann Sie uns erreichen kÃ¶nnen</p>
+    <table class="hours-table">
+      <tbody>
+        <tr>
+          <td>Montag</td>
+          <td>08:00 â 18:00 Uhr</td>
+        </tr>
+        <tr>
+          <td>Dienstag</td>
+          <td>08:00 â 18:00 Uhr</td>
+        </tr>
+        <tr>
+          <td>Mittwoch</td>
+          <td>08:00 â 18:00 Uhr</td>
+        </tr>
+        <tr>
+          <td>Donnerstag</td>
+          <td>08:00 â 18:00 Uhr</td>
+        </tr>
+        <tr>
+          <td>Freitag</td>
+          <td>08:00 â 18:00 Uhr</td>
+        </tr>
+        <tr>
+          <td>Samstag</td>
+          <td class="closed">Geschlossen</td>
+        </tr>
+        <tr>
+          <td>Sonntag</td>
+          <td class="closed">Geschlossen</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="hours-note">â¹ï¸ AuÃerhalb der Ãffnungszeiten kÃ¶nnen Sie uns gerne eine Nachricht hinterlassen â wir melden uns schnellstmÃ¶glich zurÃ¼ck.</p>
+  </div>
+</section>
+
+<!-- BEWERTUNGEN -->
+<section id="bewertungen">
+  <div class="section-inner">
+    <span class="section-title">Kundenbewertungen</span>
+    <p class="section-subtitle">Was unsere Kunden sagen</p>
+    <div class="reviews-summary">
+      <div class="rating-big">3,3</div>
+      <div class="rating-detail">
+        <div class="stars-display">
+          <span class="star filled">â</span>
+          <span class="star filled">â</span>
+          <span class="star filled">â</span>
+          <span class="star half">â</span>
+          <span class="star empty">â</span>
+        </div>
+        <div class="rating-count">Basierend auf 14 Bewertungen</div>
+      </div>
+    </div>
+    <div class="reviews-grid">
+
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="star review-star-filled">â</span>
+          <span class="star review-star-empty">â</span>
+          <span class="star review-star-empty">â</span>
+          <span class="star review-star-empty">â</span>
+          <span class="star review-star-empty">â</span>
+        </div>
+        <p class="review-text">Katastrophale Arbeit â nie wieder! Ich bin absolut enttÃ¤uscht von diesem Fliesenleger. Schon der erste Eindruck war alles andere als professionell: unpÃ¼nktlich, unvorbereitet und wirkte eher wie ein â¦</p>
+        <div class="review-meta">Kundenbewertung</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="star review-star-filled">â</span>
+          <span class="star review-star-empty">â</span>
+          <span class="star review-star-empty">â</span>
+          <span class="star review-star-empty">â</span>
+          <span class="star review-star-empty">â</span>
+        </div>
+        <p class="review-text">ACHTUNG! 123-PFUSCHER wÃ¤re zutreffender. Am liebsten wÃ¼rde ich keinen Stern geben. Herr K****** bietet AuftrÃ¤ge an, die er schlussendlich gar nicht umsetzen kann und heuert inkompetente Subunternehmen â¦</p>
+        <div class="review-meta">Kundenbewertung</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="star review-star-filled">â</span>
+          <span class="star review-star-empty">â</span>
+          <span class="star review-star-empty">â</span>
+          <span class="star review-star-empty">â</span>
+          <span class="star review-star-empty">â</span>
+        </div>
+        <p class="review-text">Teilt eine Woche vor Insolvenz âverbindliche Liefertermine
