@@ -3,374 +3,357 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>123-handwerker â Handwerk in Berlin</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>123-handwerker &ndash; Handwerk in Berlin</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --primary: #1a3a5c;
-    --primary-light: #2557a7;
-    --accent: #e8a020;
-    --accent-light: #f5c842;
-    --bg: #f7f8fa;
-    --white: #ffffff;
-    --text: #222b36;
-    --text-muted: #5a6475;
-    --border: #e2e6ee;
-    --card-shadow: 0 2px 16px rgba(26,58,92,0.09);
-    --radius: 12px;
-  }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:#1a1a2e;background:#f8f9fa;line-height:1.6}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;height:auto;display:block}
 
-  /* NAV */
-  nav {
-    background: var(--primary);
-    padding: 0 24px;
-    position: sticky; top: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 64px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
-  }
-  .nav-brand { color: var(--white); font-size: 1.25rem; font-weight: 700; letter-spacing: 0.5px; text-decoration: none; }
-  .nav-brand span { color: var(--accent-light); }
-  .nav-links { display: flex; gap: 24px; list-style: none; }
-  .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.92rem; font-weight: 500; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--accent-light); }
-  @media(max-width:600px) { .nav-links { display: none; } }
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(20,20,40,0.95);backdrop-filter:blur(8px);padding:0 2rem}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.4rem;color:#f0a500;letter-spacing:1px}
+.nav-links{display:flex;gap:1.8rem;list-style:none}
+.nav-links a{color:#e0e0e0;font-size:0.9rem;font-weight:500;transition:color 0.3s}
+.nav-links a:hover{color:#f0a500}
 
-  /* HERO */
-  .hero {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 60%, #3a7bd5 100%);
-    color: var(--white);
-    padding: 80px 24px 64px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  }
-  .hero-badge {
-    display: inline-block;
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.3);
-    color: var(--white);
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 5px 16px;
-    border-radius: 20px;
-    margin-bottom: 20px;
-  }
-  .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; margin-bottom: 12px; letter-spacing: -0.5px; }
-  .hero-sub { font-size: 1.1rem; color: rgba(255,255,255,0.8); margin-bottom: 28px; }
-  .hero-rating { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.12); border-radius: 40px; padding: 8px 20px; }
-  .stars-display { display: flex; gap: 3px; }
-  .star { font-size: 1.2rem; }
-  .star.filled { color: var(--accent-light); }
-  .star.half { color: var(--accent-light); opacity: 0.6; }
-  .star.empty { color: rgba(255,255,255,0.35); }
-  .rating-text { color: rgba(255,255,255,0.9); font-size: 0.95rem; font-weight: 500; }
-  .hero-cta { margin-top: 36px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-  .btn {
-    display: inline-block; padding: 13px 30px; border-radius: 8px;
-    font-weight: 600; font-size: 0.97rem; text-decoration: none; transition: all 0.2s;
-    cursor: pointer; border: none;
-  }
-  .btn-accent { background: var(--accent); color: var(--primary); }
-  .btn-accent:hover { background: var(--accent-light); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(232,160,32,0.4); }
-  .btn-outline { background: transparent; border: 2px solid rgba(255,255,255,0.7); color: var(--white); }
-  .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: var(--white); }
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1504148455328-c376907d081c?w=1200&h=600&fit=crop') center/cover no-repeat;filter:brightness(0.35)}
+.hero-content{position:relative;z-index:2;text-align:center;padding:2rem;max-width:800px}
+.hero-badge{display:inline-block;background:#f0a500;color:#1a1a2e;font-size:0.8rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:0.35rem 1rem;border-radius:50px;margin-bottom:1.2rem}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,4.5rem);color:#ffffff;line-height:1.15;margin-bottom:1rem;text-shadow:0 2px 20px rgba(0,0,0,0.5)}
+.hero-rating{display:flex;align-items:center;justify-content:center;gap:0.6rem;margin-bottom:1.8rem}
+.stars-hero{color:#f0a500;font-size:1.6rem;letter-spacing:2px}
+.rating-text{color:#e0e0e0;font-size:1rem;font-weight:500}
+.hero-cta{display:inline-block;background:#f0a500;color:#1a1a2e;font-weight:700;font-size:1rem;padding:0.9rem 2.5rem;border-radius:50px;transition:transform 0.3s,box-shadow 0.3s;box-shadow:0 4px 20px rgba(240,165,0,0.4)}
+.hero-cta:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(240,165,0,0.5)}
 
-  /* SECTIONS */
-  section { padding: 72px 24px; }
-  .section-inner { max-width: 960px; margin: 0 auto; }
-  .section-title {
-    font-size: 1.7rem; font-weight: 700; color: var(--primary);
-    margin-bottom: 8px; position: relative; display: inline-block;
-  }
-  .section-title::after {
-    content: ''; display: block; height: 4px; border-radius: 2px;
-    background: var(--accent); margin-top: 6px; width: 50px;
-  }
-  .section-subtitle { color: var(--text-muted); font-size: 1rem; margin-bottom: 40px; margin-top: 8px; }
+/* SECTIONS */
+section{padding:5rem 2rem}
+.container{max-width:1200px;margin:0 auto}
+.section-label{font-size:0.8rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#f0a500;margin-bottom:0.5rem}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:#1a1a2e;margin-bottom:1rem}
+.section-divider{width:60px;height:4px;background:#f0a500;border-radius:2px;margin-bottom:2.5rem}
 
-  /* ÃBER UNS */
-  #ueber { background: var(--white); }
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
-  @media(max-width:640px) { .about-grid { grid-template-columns: 1fr; } }
-  .about-text p { color: var(--text-muted); font-size: 1rem; line-height: 1.8; margin-bottom: 16px; }
-  .about-features { display: flex; flex-direction: column; gap: 16px; }
-  .feature-card {
-    background: var(--bg); border-radius: var(--radius); padding: 18px 20px;
-    display: flex; align-items: flex-start; gap: 14px;
-    border-left: 4px solid var(--accent);
-  }
-  .feature-icon { font-size: 1.5rem; flex-shrink: 0; }
-  .feature-title { font-weight: 600; color: var(--primary); margin-bottom: 2px; font-size: 0.95rem; }
-  .feature-desc { color: var(--text-muted); font-size: 0.87rem; }
+/* ABOUT */
+#ueber-uns{background:#ffffff}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.about-img-wrap{border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.15);position:relative}
+.about-img-wrap::before{content:'';position:absolute;inset:-8px;border:3px solid #f0a500;border-radius:20px;z-index:-1}
+.about-img-wrap img{width:100%;height:400px;object-fit:cover}
+.about-text p{color:#555;font-size:1rem;line-height:1.85;margin-bottom:1.2rem}
+.about-features{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
+.feature-item{display:flex;align-items:center;gap:0.7rem;background:#f8f9fa;border-radius:10px;padding:0.75rem 1rem}
+.feature-icon{font-size:1.4rem}
+.feature-item span{font-size:0.9rem;font-weight:600;color:#1a1a2e}
 
-  /* ÃFFNUNGSZEITEN */
-  #oeffnungszeiten { background: var(--bg); }
-  .hours-table { width: 100%; border-collapse: separate; border-spacing: 0 6px; }
-  .hours-table tr td {
-    padding: 12px 18px; background: var(--white);
-    border: none; font-size: 0.97rem;
-  }
-  .hours-table tr td:first-child { border-radius: 8px 0 0 8px; font-weight: 600; color: var(--primary); width: 50%; }
-  .hours-table tr td:last-child { border-radius: 0 8px 8px 0; color: var(--text-muted); text-align: right; }
-  .hours-table tr.today td { background: #e8f0fe; }
-  .hours-table tr.today td:first-child { color: var(--primary-light); }
-  .hours-table tr.today td:last-child { color: var(--primary-light); font-weight: 600; }
-  .closed { color: #c0392b !important; font-weight: 500 !important; }
-  .hours-note { margin-top: 16px; font-size: 0.87rem; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
+/* OPENING HOURS */
+#oeffnungszeiten{background:#1a1a2e}
+#oeffnungszeiten .section-title{color:#ffffff}
+#oeffnungszeiten .section-label{color:#f0a500}
+.hours-card{background:#ffffff;border-radius:20px;overflow:hidden;max-width:600px;margin:0 auto;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.hours-header{background:#f0a500;padding:1.5rem 2rem;display:flex;align-items:center;gap:1rem}
+.hours-header h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:#1a1a2e}
+.hours-header .clock-icon{font-size:1.8rem}
+.hours-table{width:100%;border-collapse:collapse}
+.hours-table tr{border-bottom:1px solid #f0f0f0}
+.hours-table tr:last-child{border-bottom:none}
+.hours-table td{padding:0.9rem 2rem;font-size:0.95rem}
+.hours-table td:first-child{font-weight:600;color:#1a1a2e}
+.hours-table td:last-child{text-align:right;color:#555}
+.hours-table tr.today{background:#fff8e6}
+.hours-table tr.closed td:last-child{color:#e53e3e;font-weight:600}
+.hours-table tr.open-day td:last-child{color:#38a169;font-weight:600}
 
-  /* BEWERTUNGEN */
-  #bewertungen { background: var(--white); }
-  .reviews-summary {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-    border-radius: var(--radius); padding: 28px 32px; color: var(--white);
-    display: flex; align-items: center; gap: 32px; margin-bottom: 36px; flex-wrap: wrap;
-  }
-  .rating-big { font-size: 3.5rem; font-weight: 700; line-height: 1; }
-  .rating-detail .stars-display .star { font-size: 1.4rem; }
-  .rating-detail .rating-count { font-size: 0.9rem; color: rgba(255,255,255,0.75); margin-top: 4px; }
-  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-  .review-card {
-    background: var(--bg); border-radius: var(--radius); padding: 22px;
-    border: 1px solid var(--border); box-shadow: var(--card-shadow);
-    display: flex; flex-direction: column; gap: 10px;
-  }
-  .review-stars { display: flex; gap: 3px; }
-  .review-stars .star { font-size: 1rem; }
-  .review-star-filled { color: var(--accent); }
-  .review-star-empty { color: #ddd; }
-  .review-text { font-size: 0.92rem; color: var(--text-muted); line-height: 1.7; font-style: italic; }
-  .review-text::before { content: '\201E'; color: var(--accent); font-size: 1.2rem; font-style: normal; }
-  .review-text::after { content: '\201C'; color: var(--accent); font-size: 1.2rem; font-style: normal; }
-  .review-meta { font-size: 0.8rem; color: #999; font-weight: 500; }
+/* REVIEWS */
+#bewertungen{background:#f4f5f7}
+.reviews-meta{display:flex;align-items:center;gap:1.5rem;margin-bottom:3rem;flex-wrap:wrap}
+.overall-rating{display:flex;align-items:center;gap:1rem;background:#ffffff;border-radius:14px;padding:1rem 1.8rem;box-shadow:0 4px 20px rgba(0,0,0,0.08)}
+.rating-big{font-size:3rem;font-weight:700;color:#1a1a2e;line-height:1}
+.rating-stars-big{color:#f0a500;font-size:1.5rem}
+.rating-count{color:#777;font-size:0.85rem;margin-top:0.2rem}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.5rem}
+.review-card{background:#ffffff;border-radius:16px;padding:1.5rem;box-shadow:0 4px 20px rgba(0,0,0,0.07);border-left:4px solid #f0a500;transition:transform 0.3s,box-shadow 0.3s}
+.review-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.12)}
+.review-card.low-rating{border-left-color:#e53e3e}
+.review-card.high-rating{border-left-color:#38a169}
+.review-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:0.8rem;gap:1rem}
+.reviewer-info{display:flex;align-items:center;gap:0.75rem}
+.reviewer-avatar{width:42px;height:42px;border-radius:50%;background:#f0a500;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;color:#1a1a2e;flex-shrink:0}
+.reviewer-avatar.low{background:#fde8e8;color:#e53e3e}
+.reviewer-avatar.high{background:#e6f7ef;color:#38a169}
+.reviewer-name{font-weight:600;font-size:0.95rem;color:#1a1a2e}
+.review-stars{color:#f0a500;font-size:1rem;letter-spacing:1px}
+.review-stars .empty{color:#ddd}
+.review-text{font-size:0.9rem;color:#555;line-height:1.75;font-style:italic}
+.review-text::before{content:'\201E';font-size:1.5rem;color:#f0a500;line-height:0;vertical-align:-0.4rem;margin-right:0.2rem}
+.review-text::after{content:'\201C';font-size:1.5rem;color:#f0a500;line-height:0;vertical-align:-0.4rem;margin-left:0.2rem}
 
-  /* KONTAKT */
-  #kontakt { background: var(--bg); }
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
-  @media(max-width:640px) { .contact-grid { grid-template-columns: 1fr; } }
-  .contact-card {
-    background: var(--white); border-radius: var(--radius);
-    padding: 32px; box-shadow: var(--card-shadow);
-    border: 1px solid var(--border);
-  }
-  .contact-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 22px; }
-  .contact-item:last-child { margin-bottom: 0; }
-  .contact-icon {
-    width: 42px; height: 42px; border-radius: 10px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-light));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem; flex-shrink: 0; color: white;
-  }
-  .contact-label { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); margin-bottom: 3px; }
-  .contact-value { font-size: 1rem; color: var(--text); font-weight: 500; }
-  .contact-value a { color: var(--primary-light); text-decoration: none; font-weight: 600; }
-  .contact-value a:hover { color: var(--accent); }
-  .cta-card {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-    border-radius: var(--radius); padding: 32px;
-    color: var(--white); display: flex; flex-direction: column; justify-content: center; gap: 18px;
-  }
-  .cta-card h3 { font-size: 1.4rem; font-weight: 700; }
-  .cta-card p { color: rgba(255,255,255,0.8); font-size: 0.97rem; line-height: 1.7; }
-  .btn-cta {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--accent); color: var(--primary); padding: 14px 28px;
-    border-radius: 8px; font-weight: 700; font-size: 1rem; text-decoration: none;
-    transition: all 0.2s; align-self: flex-start;
-  }
-  .btn-cta:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(232,160,32,0.4); }
+/* CONTACT */
+#kontakt{background:#ffffff}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.contact-info h3{font-family:'Playfair Display',serif;font-size:1.6rem;color:#1a1a2e;margin-bottom:1.5rem}
+.contact-item{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.5rem;padding:1rem;background:#f8f9fa;border-radius:12px}
+.contact-icon{font-size:1.5rem;flex-shrink:0;margin-top:0.1rem}
+.contact-item-text{flex:1}
+.contact-item-label{font-size:0.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#999;margin-bottom:0.2rem}
+.contact-item-value{font-size:1rem;font-weight:600;color:#1a1a2e}
+.contact-item-value a{color:#1a1a2e;transition:color 0.3s}
+.contact-item-value a:hover{color:#f0a500}
+.cta-box{background:linear-gradient(135deg,#1a1a2e 0%,#2d2d5e 100%);border-radius:20px;padding:3rem 2.5rem;text-align:center}
+.cta-box h3{font-family:'Playfair Display',serif;font-size:1.8rem;color:#ffffff;margin-bottom:1rem}
+.cta-box p{color:#b0b0c8;font-size:0.95rem;margin-bottom:2rem;line-height:1.7}
+.cta-btn{display:inline-flex;align-items:center;gap:0.6rem;background:#f0a500;color:#1a1a2e;font-weight:700;font-size:1.05rem;padding:1rem 2.5rem;border-radius:50px;transition:transform 0.3s,box-shadow 0.3s;box-shadow:0 4px 20px rgba(240,165,0,0.4)}
+.cta-btn:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(240,165,0,0.5)}
+.cta-phone{font-size:1.3rem;font-weight:700;color:#f0a500;display:block;margin-bottom:1.5rem}
 
-  /* FOOTER */
-  footer {
-    background: var(--primary);
-    color: rgba(255,255,255,0.75);
-    text-align: center; padding: 28px 24px;
-    font-size: 0.88rem;
-  }
-  footer strong { color: var(--white); }
-  footer .footer-links { display: flex; justify-content: center; gap: 24px; margin-top: 8px; flex-wrap: wrap; }
-  footer .footer-links span { cursor: default; }
+/* FOOTER */
+footer{background:#0e0e1f;padding:2rem;text-align:center}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.3rem;color:#f0a500;margin-bottom:0.5rem}
+.footer-copy{color:#555;font-size:0.85rem}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+.about-grid{grid-template-columns:1fr;gap:2.5rem}
+.contact-grid{grid-template-columns:1fr;gap:2.5rem}
+.nav-links{display:none}
+}
+@media(max-width:600px){
+section{padding:3.5rem 1.2rem}
+.about-features{grid-template-columns:1fr}
+.reviews-grid{grid-template-columns:1fr}
+.hours-table td{padding:0.75rem 1.2rem}
+.cta-box{padding:2rem 1.5rem}
+}
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <a class="nav-brand" href="#">123-<span>handwerker</span></a>
-  <ul class="nav-links">
-    <li><a href="#ueber">Ãber uns</a></li>
-    <li><a href="#oeffnungszeiten">Ãffnungszeiten</a></li>
-    <li><a href="#bewertungen">Bewertungen</a></li>
-    <li><a href="#kontakt">Kontakt</a></li>
-  </ul>
+<div class="nav-inner">
+<span class="nav-logo">123-handwerker</span>
+<ul class="nav-links">
+<li><a href="#ueber-uns">&Uuml;ber uns</a></li>
+<li><a href="#oeffnungszeiten">&Ouml;ffnungszeiten</a></li>
+<li><a href="#bewertungen">Bewertungen</a></li>
+<li><a href="#kontakt">Kontakt</a></li>
+</ul>
+</div>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-badge">Handwerk Â· Berlin</div>
-  <h1>123-handwerker</h1>
-  <p class="hero-sub">Ihr Handwerksbetrieb in Berlin-Lichtenberg</p>
-  <div class="hero-rating">
-    <div class="stars-display">
-      <span class="star filled">â</span>
-      <span class="star filled">â</span>
-      <span class="star filled">â</span>
-      <span class="star half">â</span>
-      <span class="star empty">â</span>
-    </div>
-    <span class="rating-text">3,3 / 5 &nbsp;Â·&nbsp; 14 Bewertungen</span>
-  </div>
-  <div class="hero-cta">
-    <a href="tel:+4930206089â44" class="btn btn-accent">ð Jetzt anrufen</a>
-    <a href="#kontakt" class="btn btn-outline">Kontakt aufnehmen</a>
-  </div>
+<section class="hero" id="hero">
+<div class="hero-bg"></div>
+<div class="hero-content">
+<span class="hero-badge">&#128295; Handwerk &bull; Berlin</span>
+<h1>123-handwerker</h1>
+<div class="hero-rating">
+<span class="stars-hero">&#9733;&#9733;&#9733;&#9734;&#9734;</span>
+<span class="rating-text">3,3 / 5 &ndash; 14 Bewertungen</span>
+</div>
+<a href="#kontakt" class="hero-cta">Jetzt Kontakt aufnehmen</a>
+</div>
 </section>
 
-<!-- ÃBER UNS -->
-<section id="ueber">
-  <div class="section-inner">
-    <span class="section-title">Ãber uns</span>
-    <p class="section-subtitle">Professionelles Handwerk in Berlin-Lichtenberg</p>
-    <div class="about-grid">
-      <div class="about-text">
-        <p>123-handwerker ist Ihr zuverlÃ¤ssiger Handwerksbetrieb im Herzen von Berlin-Lichtenberg. Wir bieten eine breite Palette an handwerklichen Dienstleistungen fÃ¼r Privat- und GeschÃ¤ftskunden an â von Reparaturarbeiten Ã¼ber Renovierungen bis hin zu kompletten AusbaumaÃnahmen.</p>
-        <p>Unser Team aus erfahrenen FachkrÃ¤ften steht Ihnen von Montag bis Freitag zwischen 08:00 und 18:00 Uhr zur VerfÃ¼gung. Wir legen groÃen Wert auf sorgfÃ¤ltige AusfÃ¼hrung, termingerechte Lieferung und eine offene Kommunikation mit unseren Kunden.</p>
-        <p>FÃ¼r Anfragen und Auftragsabsprachen erreichen Sie uns telefonisch oder kommen Sie direkt an unsere Adresse in der Drossener StraÃe 25 in 13053 Berlin.</p>
-      </div>
-      <div class="about-features">
-        <div class="feature-card">
-          <div class="feature-icon">ð§</div>
-          <div>
-            <div class="feature-title">Vielseitige Handwerksleistungen</div>
-            <div class="feature-desc">Von Fliesen bis Renovierung â alles aus einer Hand fÃ¼r Ihr Zuhause oder Gewerbe.</div>
-          </div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">ð</div>
-          <div>
-            <div class="feature-title">Lokal in Berlin-Lichtenberg</div>
-            <div class="feature-desc">Wir sind vor Ort in Ihrem Kiez und kennen die Gegebenheiten in Berlin bestens.</div>
-          </div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">ð</div>
-          <div>
-            <div class="feature-title">PersÃ¶nliche Beratung</div>
-            <div class="feature-desc">Wir nehmen uns Zeit fÃ¼r Ihr Anliegen und beraten Sie individuell und transparent.</div>
-          </div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">ð</div>
-          <div>
-            <div class="feature-title">Flexible Erreichbarkeit</div>
-            <div class="feature-desc">MoâFr von 08:00 bis 18:00 Uhr fÃ¼r Sie erreichbar â schnell und unkompliziert.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- ABOUT -->
+<section id="ueber-uns">
+<div class="container">
+<div class="about-grid">
+<div class="about-img-wrap">
+<img src="https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=600&h=400&fit=crop" alt="Handwerk Werkstatt" loading="lazy">
+</div>
+<div class="about-text">
+<p class="section-label">&Uuml;ber uns</p>
+<h2 class="section-title">Ihr Handwerker in Berlin</h2>
+<div class="section-divider"></div>
+<p>Willkommen bei <strong>123-handwerker</strong> &ndash; Ihrem zuverl&auml;ssigen Handwerksbetrieb im Bezirk Lichtenberg, Berlin. Wir bieten ein breites Spektrum an Handwerksleistungen f&uuml;r Privat- und Gewerbekunden an.</p>
+<p>Unser Team aus erfahrenen Fachkr&auml;ften steht Ihnen f&uuml;r Renovierungen, Instandhaltungsarbeiten und Neuinstallationen zur Verf&uuml;gung. Wir legen gro&szlig;en Wert auf Qualit&auml;t, Termintreue und transparente Preisgestaltung.</p>
+<p>Von kleinen Reparaturen bis hin zu gro&szlig;en Umbauarbeiten &ndash; wir sind Ihr Partner f&uuml;r alle handwerklichen Aufgaben in Berlin und Umgebung.</p>
+<div class="about-features">
+<div class="feature-item"><span class="feature-icon">&#128295;</span><span>Fachgerechte Ausf&uuml;hrung</span></div>
+<div class="feature-item"><span class="feature-icon">&#9200;</span><span>P&uuml;nktlicher Service</span></div>
+<div class="feature-item"><span class="feature-icon">&#128176;</span><span>Faire Preise</span></div>
+<div class="feature-item"><span class="feature-icon">&#127968;</span><span>Berlin &amp; Umgebung</span></div>
+</div>
+</div>
+</div>
+</div>
 </section>
 
-<!-- ÃFFNUNGSZEITEN -->
+<!-- OPENING HOURS -->
 <section id="oeffnungszeiten">
-  <div class="section-inner">
-    <span class="section-title">Ãffnungszeiten</span>
-    <p class="section-subtitle">Wann Sie uns erreichen kÃ¶nnen</p>
-    <table class="hours-table">
-      <tbody>
-        <tr>
-          <td>Montag</td>
-          <td>08:00 â 18:00 Uhr</td>
-        </tr>
-        <tr>
-          <td>Dienstag</td>
-          <td>08:00 â 18:00 Uhr</td>
-        </tr>
-        <tr>
-          <td>Mittwoch</td>
-          <td>08:00 â 18:00 Uhr</td>
-        </tr>
-        <tr>
-          <td>Donnerstag</td>
-          <td>08:00 â 18:00 Uhr</td>
-        </tr>
-        <tr>
-          <td>Freitag</td>
-          <td>08:00 â 18:00 Uhr</td>
-        </tr>
-        <tr>
-          <td>Samstag</td>
-          <td class="closed">Geschlossen</td>
-        </tr>
-        <tr>
-          <td>Sonntag</td>
-          <td class="closed">Geschlossen</td>
-        </tr>
-      </tbody>
-    </table>
-    <p class="hours-note">â¹ï¸ AuÃerhalb der Ãffnungszeiten kÃ¶nnen Sie uns gerne eine Nachricht hinterlassen â wir melden uns schnellstmÃ¶glich zurÃ¼ck.</p>
-  </div>
+<div class="container">
+<div style="text-align:center;margin-bottom:3rem">
+<p class="section-label">&Ouml;ffnungszeiten</p>
+<h2 class="section-title" style="color:#fff">Wann wir f&uuml;r Sie da sind</h2>
+<div class="section-divider" style="margin:0 auto 0"></div>
+</div>
+<div class="hours-card">
+<div class="hours-header">
+<span class="clock-icon">&#128336;</span>
+<h3>Gesch&auml;ftszeiten</h3>
+</div>
+<table class="hours-table">
+<tbody>
+<tr class="closed"><td>Sonntag</td><td>Geschlossen</td></tr>
+<tr class="open-day"><td>Montag</td><td>08:00 &ndash; 18:00 Uhr</td></tr>
+<tr class="open-day"><td>Dienstag</td><td>08:00 &ndash; 18:00 Uhr</td></tr>
+<tr class="open-day"><td>Mittwoch</td><td>08:00 &ndash; 18:00 Uhr</td></tr>
+<tr class="open-day"><td>Donnerstag</td><td>08:00 &ndash; 18:00 Uhr</td></tr>
+<tr class="open-day"><td>Freitag</td><td>08:00 &ndash; 18:00 Uhr</td></tr>
+<tr class="closed"><td>Samstag</td><td>Geschlossen</td></tr>
+</tbody>
+</table>
+</div>
+</div>
 </section>
 
-<!-- BEWERTUNGEN -->
+<!-- REVIEWS -->
 <section id="bewertungen">
-  <div class="section-inner">
-    <span class="section-title">Kundenbewertungen</span>
-    <p class="section-subtitle">Was unsere Kunden sagen</p>
-    <div class="reviews-summary">
-      <div class="rating-big">3,3</div>
-      <div class="rating-detail">
-        <div class="stars-display">
-          <span class="star filled">â</span>
-          <span class="star filled">â</span>
-          <span class="star filled">â</span>
-          <span class="star half">â</span>
-          <span class="star empty">â</span>
-        </div>
-        <div class="rating-count">Basierend auf 14 Bewertungen</div>
-      </div>
-    </div>
-    <div class="reviews-grid">
+<div class="container">
+<p class="section-label">Kundenbewertungen</p>
+<h2 class="section-title">Was unsere Kunden sagen</h2>
+<div class="section-divider"></div>
+<div class="reviews-meta">
+<div class="overall-rating">
+<div class="rating-big">3,3</div>
+<div>
+<div class="rating-stars-big">&#9733;&#9733;&#9733;&#9734;&#9734;</div>
+<div class="rating-count">14 Bewertungen auf Google</div>
+</div>
+</div>
+</div>
+<div class="reviews-grid">
 
-      <div class="review-card">
-        <div class="review-stars">
-          <span class="star review-star-filled">â</span>
-          <span class="star review-star-empty">â</span>
-          <span class="star review-star-empty">â</span>
-          <span class="star review-star-empty">â</span>
-          <span class="star review-star-empty">â</span>
-        </div>
-        <p class="review-text">Katastrophale Arbeit â nie wieder! Ich bin absolut enttÃ¤uscht von diesem Fliesenleger. Schon der erste Eindruck war alles andere als professionell: unpÃ¼nktlich, unvorbereitet und wirkte eher wie ein â¦</p>
-        <div class="review-meta">Kundenbewertung</div>
-      </div>
+<!-- Review 1 -->
+<div class="review-card low-rating">
+<div class="review-header">
+<div class="reviewer-info">
+<div class="reviewer-avatar low">K</div>
+<div>
+<div class="reviewer-name">Kunde</div>
+<div class="review-stars">&#9733;<span class="empty">&#9733;&#9733;&#9733;&#9733;</span></div>
+</div>
+</div>
+</div>
+<p class="review-text">Katastrophale Arbeit &ndash; nie wieder! Ich bin absolut entt&auml;uscht von diesem Fliesenleger. Schon der erste Eindruck war alles andere als professionell: unp&uuml;nktlich, unvorbereitet und wirkte eher wie ein Hobbyhandwerker als ein Fachmann. Die Fliesenarbeiten in meinem Bad wurden schlampig und unsauber ausgef&uuml;hrt. Mehrere Fugen sind ungleichm&auml;&szlig;ig, manche Fliesen wurden sichtbar schief verlegt und an den Ecken sind sogar scharfe Kanten geblieben &ndash; Verletzungsgefahr! Der angeblich &bdquo;wasserdichte&ldquo; Anschluss zur Dusche hat bereits nach wenigen Tagen Wasser durchgelassen. Auf R&uuml;ckfragen reagierte er genervt und ausweichend. Eine Nachbesserung wurde zwar versprochen, ist aber bis heute (mehrere Wochen sp&auml;ter!) nicht erfolgt &ndash; und auf Nachrichten reagiert er gar nicht mehr.</p>
+</div>
 
-      <div class="review-card">
-        <div class="review-stars">
-          <span class="star review-star-filled">â</span>
-          <span class="star review-star-empty">â</span>
-          <span class="star review-star-empty">â</span>
-          <span class="star review-star-empty">â</span>
-          <span class="star review-star-empty">â</span>
-        </div>
-        <p class="review-text">ACHTUNG! 123-PFUSCHER wÃ¤re zutreffender. Am liebsten wÃ¼rde ich keinen Stern geben. Herr K****** bietet AuftrÃ¤ge an, die er schlussendlich gar nicht umsetzen kann und heuert inkompetente Subunternehmen â¦</p>
-        <div class="review-meta">Kundenbewertung</div>
-      </div>
+<!-- Review 2 -->
+<div class="review-card low-rating">
+<div class="review-header">
+<div class="reviewer-info">
+<div class="reviewer-avatar low">K</div>
+<div>
+<div class="reviewer-name">Kundin</div>
+<div class="review-stars">&#9733;<span class="empty">&#9733;&#9733;&#9733;&#9733;</span></div>
+</div>
+</div>
+</div>
+<p class="review-text">ACHTUNG! 123-PFUSCHER w&auml;re zutreffender. Am liebsten w&uuml;rde ich keinen Stern geben. Herr K****** bietet Auftr&auml;ge an, die er schlu&szlig;endlich gar nicht umsetzen kann und heuert inkompetente Subunternehmen an, die nicht f&uuml;r diese Arbeiten qualifiziert sind und sie nicht fachm&auml;nnisch ausf&uuml;hren k&ouml;nnen. Meine Marmorplatte wurden von den sogenannten Subunternehmer zerst&ouml;rt, das G&auml;ste WC unter anderem Schrott &ndash; dabei sollte ich eine neue K&uuml;che bekommen. Der GF ist mittlerweile untergetaucht und die unvollst&auml;ndigen Arbeiten in meiner K&uuml;che mussten von mehreren Ersatzfirmen abgerissen und neu gemacht werden. FINGER WEG!!!!!</p>
+</div>
 
-      <div class="review-card">
-        <div class="review-stars">
-          <span class="star review-star-filled">â</span>
-          <span class="star review-star-empty">â</span>
-          <span class="star review-star-empty">â</span>
-          <span class="star review-star-empty">â</span>
-          <span class="star review-star-empty">â</span>
-        </div>
-        <p class="review-text">Teilt eine Woche vor Insolvenz âverbindliche Liefertermine
+<!-- Review 3 -->
+<div class="review-card low-rating">
+<div class="review-header">
+<div class="reviewer-info">
+<div class="reviewer-avatar low">K</div>
+<div>
+<div class="reviewer-name">Kunde</div>
+<div class="review-stars">&#9733;<span class="empty">&#9733;&#9733;&#9733;&#9733;</span></div>
+</div>
+</div>
+</div>
+<p class="review-text">teilt eine woche vor insolzenz &bdquo;verbindliche liefertermine&ldquo; mit. das gibt raum zur spekulation!</p>
+</div>
+
+<!-- Review 4 -->
+<div class="review-card low-rating">
+<div class="review-header">
+<div class="reviewer-info">
+<div class="reviewer-avatar low">K</div>
+<div>
+<div class="reviewer-name">Kunde</div>
+<div class="review-stars">&#9733;<span class="empty">&#9733;&#9733;&#9733;&#9733;</span></div>
+</div>
+</div>
+</div>
+<p class="review-text">Vorsicht bei Vorkasse! Die zweite Firma des Gesch&auml;ftsf&uuml;hrers hat noch per Vorkasse Auftr&auml;ge angenommen und dann Insolvenz angemeldet. Kunden wurde nicht informiert, sondern lediglich ein Statement auf der Webseite das man nun Pleite ist.</p>
+</div>
+
+<!-- Review 5 -->
+<div class="review-card high-rating">
+<div class="review-header">
+<div class="reviewer-info">
+<div class="reviewer-avatar high">K</div>
+<div>
+<div class="reviewer-name">Kunde</div>
+<div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+</div>
+</div>
+</div>
+<p class="review-text">Preis-Leistung ist super. Schnelle und sehr gute Arbeit. Freundliche Mitarbeiter. Jederzeit wieder.</p>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="kontakt">
+<div class="container">
+<p class="section-label">Kontakt</p>
+<h2 class="section-title">Nehmen Sie Kontakt auf</h2>
+<div class="section-divider"></div>
+<div class="contact-grid">
+<div class="contact-info">
+<h3>So erreichen Sie uns</h3>
+<div class="contact-item">
+<span class="contact-icon">&#128205;</span>
+<div class="contact-item-text">
+<div class="contact-item-label">Adresse</div>
+<div class="contact-item-value">Drossener Stra&szlig;e 25<br>13053 Berlin, Deutschland<br><small style="color:#999;font-weight:400">Bezirk Lichtenberg</small></div>
+</div>
+</div>
+<div class="contact-item">
+<span class="contact-icon">&#128222;</span>
+<div class="contact-item-text">
+<div class="contact-item-label">Telefon</div>
+<div class="contact-item-value"><a href="tel:+493020608944">+49 30 20608944</a></div>
+</div>
+</div>
+<div class="contact-item">
+<span class="contact-icon">&#128337;</span>
+<div class="contact-item-text">
+<div class="contact-item-label">Gesch&auml;ftszeiten</div>
+<div class="contact-item-value">Mo &ndash; Fr: 08:00 &ndash; 18:00 Uhr</div>
+</div>
+</div>
+</div>
+<div class="cta-box">
+<h3>Jetzt anrufen &amp; Termin vereinbaren</h3>
+<p>Sie haben Fragen oder m&ouml;chten einen Termin vereinbaren? Rufen Sie uns einfach an &ndash; wir sind Montag bis Freitag von 08:00 bis 18:00 Uhr f&uuml;r Sie erreichbar.</p>
+<a href="tel:+493020608944" class="cta-phone">+49 30 20608944</a>
+<a href="tel:+493020608944" class="cta-btn">&#128222;&nbsp; Jetzt anrufen</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-inner">
+<div class="footer-logo">123-handwerker</div>
+<p style="color:#666;font-size:0.82rem;margin:0.3rem 0 0.6rem">Drossener Stra&szlig;e 25, 13053 Berlin &ndash; Bezirk Lichtenberg</p>
+<p class="footer-copy">&copy; 2026 123-handwerker. Alle Rechte vorbehalten.</p>
+</div>
+</footer>
+
+</body>
+</html>
